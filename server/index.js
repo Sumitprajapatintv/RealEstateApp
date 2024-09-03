@@ -1,5 +1,6 @@
 import express from "express";
 import mongoose from "mongoose";
+import authRouter from "./route/auth.route.js";
 
 mongoose
   .connect(
@@ -18,6 +19,10 @@ mongoose
 
 const app = express();
 
+app.use(express.json());
+
 app.listen(3000, () => {
   console.log(`Server is Listing on PORT 3000`);
 });
+
+app.use("/api/auth", authRouter);
