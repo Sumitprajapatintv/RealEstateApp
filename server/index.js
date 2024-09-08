@@ -17,6 +17,7 @@ mongoose
     console.error("Error connecting to MongoDB:", error);
   });
 
+  console.log("adkl")
 const app = express();
 
 app.use(express.json());
