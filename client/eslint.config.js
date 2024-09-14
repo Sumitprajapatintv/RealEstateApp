@@ -24,6 +24,10 @@ export default [
       'react-refresh': reactRefresh,
     },
     rules: {
+      "import/no-unresolved": [
+        2, 
+        { "caseSensitive": false }
+     ],
       ...js.configs.recommended.rules,
       ...react.configs.recommended.rules,
       ...react.configs['jsx-runtime'].rules,
