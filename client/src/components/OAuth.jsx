@@ -1,5 +1,5 @@
 import React from 'react';
-import {GoogleAuthProvider,getAuth, signInWithPopup} from "firebase/auth"
+import {GoogleAuthProvider,getAuth, signInWithPopup,signInWithRedirect } from "firebase/auth"
 import { app } from '../firebase';
 import { Provider } from 'react-redux';
 import { useDispatch, useSelector } from 'react-redux';
@@ -18,9 +18,10 @@ function OAuth() {
       try {
         const provider = new GoogleAuthProvider();
         const auth = getAuth(app);
-  
-        const result = await signInWithPopup(auth, provider);
-
+     
+           const result= await signInWithPopup(auth, provider);
+          
+        //  console.log("ress",result);
         const res=await fetch('/api/auth/google',{
           method:'POST',
           headers:{
@@ -32,10 +33,11 @@ function OAuth() {
           photo: result.user.photoURL,
           })
         })
-        const data=res.json();
+        const data=await res.json();
+        // console.log("data",data);
         dispatch(signInSuccess(data));
         navigate('/');
-        console.log("Result",result)
+        // console.log("Result",result)
       } catch (error) {
         console.log(error)
       }

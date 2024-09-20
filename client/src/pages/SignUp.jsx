@@ -25,7 +25,7 @@ function SignUp() {
         body: JSON.stringify(formData),
       });
       const data = await res.json();
-      console.log(data);
+      // console.log(data);
       if (data.success === false) {
         setLoading(false);
         setError(data.message);
@@ -39,7 +39,7 @@ function SignUp() {
       setError(error.message);
     }
   };
-  console.log("formData",formData)
+  // console.log("formData",formData)
   return (
     <div className="p-3 max-w-lg mx-auto">
       <h1 className="text-3xl text-center font-semibold my-7">Sign Up</h1>
