@@ -1,6 +1,8 @@
 import express from "express";
 import mongoose from "mongoose";
 import authRouter from "./route/auth.route.js";
+import cookieParser from 'cookie-parser';
+import userRouter from './route/user.route.js'
 
 mongoose
   .connect(
@@ -22,10 +24,12 @@ const app = express();
 
 app.use(express.json());
 
+app.use(cookieParser());
+
 app.listen(3000, () => {
   console.log(`Server is Listing on PORT 3000`);
 });
-
+app.use('/api/user', userRouter);
 app.use("/api/auth", authRouter);
 
 app.use((err, req, res, next) => {
