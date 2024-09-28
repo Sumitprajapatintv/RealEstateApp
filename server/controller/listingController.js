@@ -1,4 +1,4 @@
-import Listing from '../models/listing.model.js';
+import Listing from './../model/listingModel.js';
 export const createListing = async (req, res, next) => {
   try {
     const listing = await Listing.create(req.body);
