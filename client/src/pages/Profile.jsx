@@ -21,7 +21,7 @@ function Profile() {
   const dispatch = useDispatch();
   const fileRef = useRef(null);
   const {currentUser, loading, error} = useSelector((state) => state.user)
-  console.log("Cure",currentUser)
+  // console.log("Cure",currentUser)
   const [file, setFile] = useState(undefined);
   const [filePerc, setFilePerc] = useState(0);
   const [fileUploadError, setFileUploadError] = useState(false);
@@ -138,6 +138,24 @@ function Profile() {
     }
   };
 
+  const handleListingDelete = async (listingId) => {
+    try {
+      const res = await fetch(`/api/listing/delete/${listingId}`, {
+        method: 'DELETE',
+      });
+      const data = await res.json();
+      if (data.success === false) {
+        console.log(data.message);
+        return;
+      }
+      setUserListings((prev) =>
+        prev.filter((listing) => listing._id !== listingId)
+      );
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
 
   return  <div className='p-3 max-w-lg mx-auto'>
   <h1 className='text-3xl font-semibold text-center my-7'>Profile</h1>
@@ -209,8 +227,15 @@ function Profile() {
               </Link>
   
               <div className='flex flex-col item-center'>
-                <button className='text-red-700 uppercase'>Delete</button>
-                <button className='text-green-700 uppercase'>Edit</button>
+              <button
+                  onClick={() => handleListingDelete(listing._id)}
+                  className='text-red-700 uppercase'
+                >
+                  Delete
+                </button>
+                <Link to={`/update-listing/${listing._id}`}>
+                  <button className='text-green-700 uppercase'>Edit</button>
+                </Link>
               </div>
             </div>
           ))}
