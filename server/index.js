@@ -3,7 +3,8 @@ import mongoose from "mongoose";
 import authRouter from "./route/auth.route.js";
 import cookieParser from 'cookie-parser';
 import userRouter from './route/user.route.js';
-import listingRouter from './route/listingRoute.js'
+import listingRouter from './route/listingRoute.js';
+import path from 'path';
 
 mongoose
   .connect(
@@ -20,7 +21,7 @@ mongoose
     console.error("Error connecting to MongoDB:", error);
   });
 
-  console.log("adkl")
+  const __dirname = path.resolve();
 const app = express();
 
 app.use(express.json());
@@ -35,6 +36,10 @@ app.use("/api/auth", authRouter);
 app.use("/api/listing", listingRouter);
 
 
+app.use(express.static(path.join(__dirname, '/client/dist')));
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'client', 'dist', 'index.html'));
+})
 app.use((err, req, res, next) => {
   const statusCode = err.statusCode || 500;
   const message = err.message || "Internal Server Error";
