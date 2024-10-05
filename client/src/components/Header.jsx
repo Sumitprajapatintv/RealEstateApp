@@ -35,12 +35,12 @@ function Header() {
         
         <form
           onSubmit={handleSubmit}
-          className='bg-slate-100 p-3 rounded-lg flex items-center'
+          className='bg-slate-100 p-1 rounded-lg flex items-center'
         >
           <input
             type="text"
             placeholder="Search..."
-            className="bg-tranparent focus:outline-node w-24 sm:w-64"
+            className="focus:outline-node w-24 sm:w-64"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />
