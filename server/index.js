@@ -6,9 +6,11 @@ import userRouter from './route/user.route.js';
 import listingRouter from './route/listingRoute.js';
 import path from 'path';
 
+const mongouri=process.env.MONGO_URI;
+
 mongoose
   .connect(
-    "mongodb+srv://prajapatisumit013:yVRTP9tnb0dOJyJ2@cluster0.a7otg.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0",
+    mongouri,
     {
       useNewUrlParser: true,
       useUnifiedTopology: true,
