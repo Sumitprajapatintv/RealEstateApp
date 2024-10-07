@@ -13,18 +13,16 @@ function SignIn() {
   const { loading, error } = useSelector((state) => state.user);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
   function handleChange(e) {
     setformData({
       ...formData,
       [e.target.id]: e.target.value,
     });
   }
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      dispatch(signInStart()); // Call the function
+      dispatch(signInStart);
       const res = await fetch("/api/auth/sign-in", {
         method: "POST",
         headers: {
@@ -43,7 +41,6 @@ function SignIn() {
       dispatch(signInFailure(error.message));
     }
   };
-
   return (
     <div className="p-3 max-w-lg mx-auto">
       <h1 className="text-3xl text-center font-semibold my-7">SignIn</h1>
@@ -56,7 +53,7 @@ function SignIn() {
           onChange={handleChange}
         />
         <input
-          type="password"
+          type="text"
           placeholder="password"
           className="border p-3 rounded-lg"
           id="password"
@@ -76,7 +73,8 @@ function SignIn() {
           <span className="text-blue-700">Sign-up </span>
         </Link>
       </div>
-      {error && <p className="text-red-500 mt-5">{error}</p>}
+      {console.log("error", error)}
+      {/* {error && <p className="text-red-500 mt-5">{error}</p>} */}
     </div>
   );
 }

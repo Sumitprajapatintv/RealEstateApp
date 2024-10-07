@@ -33,7 +33,7 @@ function SignUp() {
       }
       setLoading(false);
       setError(null);
-      navigate("/sigin-in");
+      navigate("/sign-in");
     } catch (error) {
       setLoading(false);
       setError(error.message);
