@@ -1,33 +1,33 @@
-import { Link,useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from "react-redux";
 import {
   signInStart,
   signInSuccess,
   signInFailure,
-} from './../redux/user/userSlice.js';
+} from "./../redux/user/userSlice.js";
 import OAuth from "../components/OAuth.jsx";
 
 function SignIn() {
-  const [formData,setformData]=useState({});
+  console.log("Hello Form Signin");
+  const [formData, setformData] = useState({});
   const { loading, error } = useSelector((state) => state.user);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  function handleChange(e)
-  {
+  function handleChange(e) {
     setformData({
       ...formData,
-      [e.target.id]:e.target.value
-    })
+      [e.target.id]: e.target.value,
+    });
   }
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       dispatch(signInStart);
-      const res = await fetch('/api/auth/sign-in', {
-        method: 'POST',
+      const res = await fetch("/api/auth/sign-in", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify(formData),
       });
@@ -37,7 +37,7 @@ function SignIn() {
         return;
       }
       dispatch(signInSuccess(data));
-      navigate('/');
+      navigate("/");
     } catch (error) {
       dispatch(signInFailure(error.message));
     }
@@ -54,27 +54,27 @@ function SignIn() {
           onChange={handleChange}
         />
         <input
-          type="text"
+          type="password"
           placeholder="password"
           className="border p-3 rounded-lg"
           id="password"
           onChange={handleChange}
         />
-       <button
+        <button
           disabled={loading}
-          className='bg-slate-700 text-white p-3 rounded-lg uppercase hover:opacity-95 disabled:opacity-80'
+          className="bg-slate-700 text-white p-3 rounded-lg uppercase hover:opacity-95 disabled:opacity-80"
         >
-          {loading ? 'Loading...' : 'Sign In'}
-        </button>   
-        <OAuth/>
+          {loading ? "Loading..." : "Sign In"}
+        </button>
+        <OAuth />
       </form>
       <div className="flex gap-3 mt-5">
         <p>Dont Have an Account</p>
         <Link to={"/sign-up"}>
-          <span className="text-blue-700">Sign-up </span> 
+          <span className="text-blue-700">Sign-up </span>
         </Link>
       </div>
-      {error && <p className='text-red-500 mt-5'>{error}</p>}
+      {error && <p className="text-red-500 mt-5">{error}</p>}
     </div>
   );
 }

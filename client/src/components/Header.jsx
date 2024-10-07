@@ -1,21 +1,21 @@
-import { Link ,useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { FaSearch } from 'react-icons/fa';
-import { useEffect, useState } from 'react';
+import { FaSearch } from "react-icons/fa";
+import { useEffect, useState } from "react";
 function Header() {
   const { currentUser } = useSelector((state) => state.user);
-  const [searchTerm, setSearchTerm] = useState('');
+  const [searchTerm, setSearchTerm] = useState("");
   const navigate = useNavigate();
   const handleSubmit = (e) => {
     e.preventDefault();
     const urlParams = new URLSearchParams(window.location.search);
-    urlParams.set('searchTerm', searchTerm);
+    urlParams.set("searchTerm", searchTerm);
     const searchQuery = urlParams.toString();
     navigate(`/search?${searchQuery}`);
   };
   useEffect(() => {
     const urlParams = new URLSearchParams(location.search);
-    const searchTermFromUrl = urlParams.get('searchTerm');
+    const searchTermFromUrl = urlParams.get("searchTerm");
     if (searchTermFromUrl) {
       setSearchTerm(searchTermFromUrl);
     }
@@ -32,10 +32,10 @@ function Header() {
             <span className="text-slate-700">Nest</span>
           </h1>
         </Link>
-        
+
         <form
           onSubmit={handleSubmit}
-          className='bg-slate-100 p-1 rounded-lg flex items-center'
+          className="bg-slate-100 p-2 rounded-lg flex items-center"
         >
           <input
             type="text"
@@ -44,8 +44,8 @@ function Header() {
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />
-           <button>
-            <FaSearch className='text-slate-600' />
+          <button>
+            <FaSearch className="text-slate-600" />
           </button>
         </form>
 
@@ -60,9 +60,9 @@ function Header() {
           <Link to="/profile">
             {currentUser ? (
               <img
-                className='rounded-full h-7 w-7 object-cover'
+                className="rounded-full h-7 w-7 object-cover"
                 src={currentUser.avatar}
-                alt='profile'
+                alt="profile"
               />
             ) : (
               <li className="text-slate-700 hover:underline">Sign in</li>
